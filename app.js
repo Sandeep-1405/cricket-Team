@@ -50,7 +50,6 @@ const convertDbObjectToResponseObject = (dbObject) => {
 
 app.post("/players/", async (request, response) => {
   const playerdetails = request.body;
-
   const { player_name, jersey_number, role } = playerdetails;
 
   const dbaddquery = `
@@ -84,5 +83,29 @@ app.get("/players/:playerId/", async (request, response) => {
   const player1 = await db.get(dbquery);
   response.send(player1);
 });
+
+/* API 4 Updates the details of a player in the team*/
+
+app.put("/players/:playerId/",async (request, response) =>{
+    const {playerId} = request.params;
+    const playerdetails = request.body;
+    const { player_name, jersey_number, role } = playerdetails;
+
+    const updatequerry = `
+    UPDATE 
+        cricket_team
+    SET
+        player_name ='${player_name}',
+        jersey_number = '${jersey_number}',
+        role = '${role}'
+    WHERE
+         player_id = ${playerId};`;
+
+
+    const updaterresponse = await db.run(updatequerry);
+    response.send("Player Details Updated");
+    /*response.send(updaterresponse)*/
+
+})
 
 module.exports = app;

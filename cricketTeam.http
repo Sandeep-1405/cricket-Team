@@ -15,3 +15,13 @@ Content-Type: application/json
 
 ###
 GET http://localhost:3000/players/9/
+
+###
+PUT http://localhost:3000/players/1/
+Content-Type: application/json
+
+{
+  "playerName": "Maneesh",
+  "jerseyNumber": 54,
+  "role": "All-rounder"
+}
